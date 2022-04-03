@@ -1,3 +1,3 @@
 # geo-rush
 
-> A geometric rush game.
+> A simple platform-jumping game.

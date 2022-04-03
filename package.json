@@ -1,7 +1,7 @@
 {
   "name": "geo-rush",
   "version": "0.1.0",
-  "description": "A geometric rush game.",
+  "description": "A simple platform-jumping game.",
   "author": "3h",
   "license": "MIT",
   "private": true,

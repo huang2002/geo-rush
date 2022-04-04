@@ -138,6 +138,11 @@ export const updatePlatforms = () => {
 
 };
 
+export const updateCamera = () => {
+    mainSceneWorld.offset.x = engine.width / 2 - character.offset.x
+        - character.bounds.width / 2;
+};
+
 /**
  * @type {POM.WorldNode<any>}
  */
@@ -151,10 +156,10 @@ export const mainSceneWorld = new POM.WorldNode({
 
         beforeUpdate() {
             updatePlatforms();
-            updateCamera();
         },
 
         afterUpdate() {
+
             bombs = bombs.filter(bomb => {
                 if (bomb.bounds.top <= engine.height) {
                     return true;
@@ -163,12 +168,10 @@ export const mainSceneWorld = new POM.WorldNode({
                     return false;
                 }
             });
+
+            updateCamera();
+
         },
 
     },
 });
-
-export const updateCamera = () => {
-    mainSceneWorld.offset.x = engine.width / 2 - character.offset.x
-        - character.bounds.width / 2;
-};

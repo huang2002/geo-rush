@@ -155,7 +155,7 @@ export const mainScene = COM.create(HE.SceneNode, {
             );
             mainSceneWorld.appendChild(character);
 
-            updateCamera();
+            updateCamera(true);
             updatePlatforms();
 
             gameOverSection.visible = false;

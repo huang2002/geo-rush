@@ -3,6 +3,8 @@ import { engine, createRandomizer, COMMON_ELASTICITY, FRAME_DURATION, COMMON_FRI
 export const CHARACTER_SIZE = 40;
 export const CHARACTER_INIT_X = engine.width / 2;
 
+const CAMERA_SPEED = 0.5;
+
 const PLATFORM_COUNT = 5;
 export const PLATFORM_MIN_Y = engine.height * 0.45;
 const PLATFORM_MAX_Y = engine.height * 0.60;
@@ -138,9 +140,18 @@ export const updatePlatforms = () => {
 
 };
 
-export const updateCamera = () => {
-    mainSceneWorld.offset.x = engine.width / 2 - character.offset.x
-        - character.bounds.width / 2;
+export const updateCamera = (instant = false) => {
+    const targetOffsetX = engine.width / 2 - character.bounds.width / 2
+        - character.offset.x - character.velocity.x;
+    if (instant) {
+        mainSceneWorld.offset.x = targetOffsetX;
+    } else {
+        mainSceneWorld.offset.x = HUtils.interpolate(
+            mainSceneWorld.offset.x,
+            targetOffsetX,
+            CAMERA_SPEED,
+        );
+    }
 };
 
 /**
@@ -156,10 +167,10 @@ export const mainSceneWorld = new POM.WorldNode({
 
         beforeUpdate() {
             updatePlatforms();
+            updateCamera();
         },
 
         afterUpdate() {
-
             bombs = bombs.filter(bomb => {
                 if (bomb.bounds.top <= engine.height) {
                     return true;
@@ -168,9 +179,6 @@ export const mainSceneWorld = new POM.WorldNode({
                     return false;
                 }
             });
-
-            updateCamera();
-
         },
 
     },

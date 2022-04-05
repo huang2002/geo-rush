@@ -15,7 +15,6 @@ const ENGINE_HEIGHT = 640;
 export const engine = new HE.CanvasEngine({
     interactive: true,
     style: {
-        fillStyle: '#223',
         font: '18px sans-serif',
     },
     resizerOptions: {
@@ -34,6 +33,16 @@ export const engine = new HE.CanvasEngine({
         ),
     }),
 });
+
+const backgroundGradient = engine.renderer.context.createLinearGradient(
+    0,
+    0,
+    0,
+    engine.height,
+);
+backgroundGradient.addColorStop(0, '#113');
+backgroundGradient.addColorStop(1, '#224');
+engine.style.fillStyle = backgroundGradient;
 
 /**
  * @param {string} content

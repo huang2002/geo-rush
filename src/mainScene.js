@@ -66,6 +66,7 @@ const handleClick = HUtils.throttle(
             );
 
             mainSceneWorld.removeChild(bomb);
+            recycleBomb(bomb);
 
             const particleGroup = createParticleGroup(
                 bombOffset.x + halfBombWidth,

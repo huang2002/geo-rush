@@ -1,3 +1,4 @@
+import { recycleBomb } from './bomb';
 import { engine, createRandomizer, COMMON_ELASTICITY, FRAME_DURATION, COMMON_FRICTION, COMMON_GRAVITY, COMMON_STATIC_FRICTION, MAX_FRAME_COUNT } from './common.js';
 
 export const CHARACTER_SIZE = 40;
@@ -176,6 +177,7 @@ export const mainSceneWorld = new POM.WorldNode({
                     return true;
                 } else {
                     mainSceneWorld.removeChild(bomb);
+                    recycleBomb(bomb);
                     return false;
                 }
             });

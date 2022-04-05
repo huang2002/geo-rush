@@ -1,5 +1,6 @@
 import { engine, createRandomizer, COMMON_ELASTICITY, COMMON_FRICTION, COMMON_STATIC_FRICTION } from './common.js';
 import { character } from "./character.js";
+import { COIN_HEIGHT, COIN_RADIUS, COIN_SPAWN_RATE, spawnCoin } from './coin.js';
 
 const PLATFORM_COUNT = 5;
 export const PLATFORM_MIN_Y = engine.height * 0.45;
@@ -24,6 +25,8 @@ const platformWidthRandomizer = createRandomizer();
 const platformHeightRandomizer = createRandomizer();
 const platformColorRandomizer = createRandomizer();
 const platformGapRandomizer = createRandomizer();
+
+const coinSpawnRandomizer = createRandomizer();
 
 export const platformPool = new HP.Pool({
     initSize: PLATFORM_COUNT,
@@ -72,9 +75,11 @@ export const platformPool = new HP.Pool({
         }
     },
 });
+
 /**
  * @typedef {ReturnType<platformPool['create']>} Platform
  */
+
 /**
  * @type {Platform[]}
  */
@@ -96,21 +101,35 @@ export const updatePlatforms = (world) => {
     });
 
     for (let i = platforms.length; i < PLATFORM_COUNT; i++) {
+
         const gap = platformGapRandomizer.integer(
             PLATFORM_MIN_GAP,
             PLATFORM_MAX_GAP,
         );
-        const nextPlatform = platformPool.pop();
+
         const lastPlatform = platforms[platforms.length - 1];
+        const nextPlatform = platformPool.pop();
+        const nextWidth = nextPlatform.bounds.width;
+
         if (lastPlatform) {
             nextPlatform.offset.x = lastPlatform.offset.x
                 + lastPlatform.bounds.width + gap;
         } else {
             nextPlatform.offset.x = character.offset.x
-                - (nextPlatform.bounds.width - character.bounds.width) / 2;
+                - (nextWidth - character.bounds.width) / 2;
         }
+
         platforms.push(nextPlatform);
         world.appendChild(nextPlatform);
+
+        if (lastPlatform && coinSpawnRandomizer.boolean(COIN_SPAWN_RATE)) {
+            spawnCoin(
+                nextPlatform.offset.x + nextWidth / 2 - COIN_RADIUS,
+                nextPlatform.offset.y - COIN_RADIUS * 2 - COIN_HEIGHT,
+                world,
+            );
+        }
+
     }
 
 };

@@ -1,23 +1,24 @@
 import { createBomb, recycleBomb } from './bomb.js';
 import { engine, SimpleButton, SIMPLE_BUTTON_WIDTH } from './common.js';
 import { bombs, mainSceneWorld, particleGroups, updateCamera } from './mainSceneWorld.js';
-import { character, CHARACTER_INIT_X, CHARACTER_SIZE } from "./character.js";
+import { character, CHARACTER_INIT_X, CHARACTER_SIZE, currentScore, setScore } from "./character.js";
 import { platformPool, platforms, PLATFORM_MIN_Y, updatePlatforms } from "./platform.js";
 import { menuScene } from './menuScene.js';
 import { createParticleGroup } from './particles.js';
+import { bonusAnimationPool, bonusAnimations, bonusTextPool, bonusTexts, coinPool, coins } from './coin.js';
 
 const BOMB_SPAWN_MIN_GAP = 200;
 const BOMB_IMPACT_COEFFICIENT = 9;
 
 const SCORE_SCALE = 0.05;
 
-let currentScore = 0;
-
 mainSceneWorld.on('afterUpdate', () => {
 
-    currentScore = Math.max(
-        currentScore,
-        Math.floor((character.offset.x - CHARACTER_INIT_X) * SCORE_SCALE),
+    setScore(
+        Math.max(
+            currentScore,
+            Math.floor((character.offset.x - CHARACTER_INIT_X) * SCORE_SCALE),
+        )
     );
 
     scoreText.content = `Score: ${currentScore}`;
@@ -148,7 +149,7 @@ export const mainScene = COM.create(HE.SceneNode, {
 
         enter() {
 
-            currentScore = 0;
+            setScore(0);
 
             character.velocity.set(0, 0);
             character.offset.set(
@@ -179,6 +180,21 @@ export const mainScene = COM.create(HE.SceneNode, {
                 recycleBomb(bomb);
             });
             bombs.length = 0;
+
+            coins.forEach(coin => {
+                coinPool.push(coin);
+            });
+            coins.length = 0;
+
+            bonusAnimations.forEach(bonusAnimation => {
+                bonusAnimationPool.push(bonusAnimation);
+            });
+            bonusAnimations.length = 0;
+
+            bonusTexts.forEach(bonusText => {
+                bonusTextPool.push(bonusText);
+            });
+            bonusTexts.length = 0;
 
             particleGroups.forEach(particleGroup => {
                 particleGroup.animation.finish(event.timeStamp);

@@ -1,5 +1,6 @@
 import { recycleBomb } from './bomb.js';
 import { character } from './character.js';
+import { updateCoins, coins } from './coin.js';
 import { engine, FRAME_DURATION, MAX_FRAME_COUNT } from './common.js';
 import { updatePlatforms } from './platform.js';
 
@@ -42,6 +43,7 @@ export const mainSceneWorld = new POM.WorldNode({
 
         beforeUpdate() {
 
+            updateCoins();
             updatePlatforms(mainSceneWorld);
 
             bombs = bombs.filter(bomb => {

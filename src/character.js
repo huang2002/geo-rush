@@ -19,3 +19,12 @@ export const character = new POM.BodyNode({
         lineWidth: 2,
     },
 });
+
+export let currentScore = 0;
+
+/**
+ * @param {number} score
+ */
+export const setScore = (score) => {
+    currentScore = score;
+};

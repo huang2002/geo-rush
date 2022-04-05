@@ -122,7 +122,7 @@ const spawnParticleGroup = () => {
     });
     particleGroups.push(particleGroup);
 
-    particleGroup.animation.on('finish', event => {
+    particleGroup.animation.once('finish', event => {
         const index = particleGroups.indexOf(particleGroup);
         HUtils.removeElements(particleGroups, index, 1);
     });

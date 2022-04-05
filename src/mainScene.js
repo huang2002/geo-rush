@@ -53,7 +53,7 @@ const handleClick = HUtils.throttle(
 
         bombOffset.sub(halfBombWidth, halfBombHeight);
 
-        bomb.on('collision', event => {
+        bomb.once('collision', event => {
 
             const bombIndex = bombs.indexOf(bomb);
             if (bombIndex === -1) {
@@ -72,7 +72,7 @@ const handleClick = HUtils.throttle(
                 bombOffset.y + halfBombHeight,
                 event.timeStamp,
             );
-            particleGroup.animation.on('finish', () => {
+            particleGroup.animation.once('finish', () => {
                 particleGroups.delete(particleGroup);
                 // particles remove themselves automatically
             });

@@ -60,9 +60,6 @@ const animationPool = new HP.Pool({
             timing: COM.Timing.easeOut,
         })
     ),
-    clear: (animation) => {
-        animation.listenerMap.clear();
-    },
 });
 
 /**
@@ -129,7 +126,7 @@ export const createParticleGroup = (x, y, timeStamp) => {
         });
     });
     animation.start(timeStamp);
-    animation.on('finish', event => {
+    animation.once('finish', event => {
         recycleParticleGroup(particleGroup);
     });
 

@@ -23,9 +23,6 @@ const bombPool = new HP.Pool({
             },
         })
     ),
-    clear: (bomb) => {
-        bomb.listenerMap.clear();
-    },
 });
 
 /**

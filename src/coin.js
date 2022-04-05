@@ -54,6 +54,11 @@ export const bonusTextPool = new HP.Pool({
     init(bonusText) {
         bonusText.style.opacity = 1;
     },
+    clear(bonusText) {
+        if (bonusText.parentNode) {
+            bonusText.parentNode.removeChild(bonusText);
+        }
+    },
 });
 
 export const bonusAnimationPool = new HP.Pool({
@@ -66,6 +71,7 @@ export const bonusAnimationPool = new HP.Pool({
         })
     ),
     clear(animation) {
+        animation.stop(COM.Schedule.getTimeStamp());
         animation.listenerMap.clear();
     },
 });

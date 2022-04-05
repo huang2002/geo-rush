@@ -256,4 +256,28 @@ export const menuScene = COM.create(HE.SceneNode, {
         ]),
     ]),
 
+    COM.create(COM.AlignNode, {
+        stretch: 1,
+        alignY: 'end',
+    }, [
+        COM.create(COM.TextNode, {
+            stretchX: 1,
+            boundsHeight: 40,
+            offsetY: -20,
+            interactive: true,
+            content: 'huang2002/geo-rush',
+            style: {
+                fillStyle: '#002',
+                font: '13px sans-serif',
+                textAlign: 'center',
+                textBaseline: 'bottom',
+            },
+            listeners: {
+                click() {
+                    window.open('https://github.com/huang2002/geo-rush');
+                },
+            },
+        })
+    ]),
+
 ]);

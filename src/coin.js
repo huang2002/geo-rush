@@ -46,6 +46,8 @@ export const bonusTextPool = new HP.Pool({
             style: {
                 fillStyle: '#FF0',
                 font: 'bold 25px sans-serif',
+                textAlign: 'center',
+                textBaseline: 'bottom',
             },
         })
     ),

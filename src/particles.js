@@ -48,6 +48,11 @@ const particlePool = new HP.Pool({
             },
         })
     ),
+    clear(particle) {
+        if (particle.parentNode) {
+            particle.parentNode.removeChild(particle);
+        }
+    },
 });
 
 const animationPool = new HP.Pool({
@@ -99,9 +104,6 @@ const createParticles = (x, y) => {
 const recycleParticleGroup = (group) => {
 
     group.particles.forEach(particle => {
-        if (particle.parentNode) {
-            particle.parentNode.removeChild(particle);
-        }
         particlePool.push(particle);
     });
 

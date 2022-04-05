@@ -1,4 +1,4 @@
-import { recycleBomb } from './bomb';
+import { recycleBomb } from './bomb.js';
 import { engine, createRandomizer, COMMON_ELASTICITY, FRAME_DURATION, COMMON_FRICTION, COMMON_GRAVITY, COMMON_STATIC_FRICTION, MAX_FRAME_COUNT } from './common.js';
 
 export const CHARACTER_SIZE = 40;
@@ -88,6 +88,11 @@ export const platformPool = new HP.Pool({
             PLATFORM_COLORS,
         );
     },
+    clear(platform) {
+        if (platform.parentNode) {
+            platform.parentNode.removeChild(platform);
+        }
+    },
 });
 
 /**
@@ -115,7 +120,6 @@ export const updatePlatforms = () => {
         if (platform.bounds.right >= 0) {
             return true;
         } else {
-            mainSceneWorld.removeChild(platform);
             platformPool.push(platform);
             return false;
         }
@@ -176,7 +180,6 @@ export const mainSceneWorld = new POM.WorldNode({
                 if (bomb.bounds.top <= engine.height) {
                     return true;
                 } else {
-                    mainSceneWorld.removeChild(bomb);
                     recycleBomb(bomb);
                     return false;
                 }

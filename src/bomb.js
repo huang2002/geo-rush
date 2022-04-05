@@ -23,6 +23,11 @@ const bombPool = new HP.Pool({
             },
         })
     ),
+    clear(bomb) {
+        if (bomb.parentNode) {
+            bomb.parentNode.removeChild(bomb);
+        }
+    },
 });
 
 /**

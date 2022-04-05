@@ -151,7 +151,6 @@ const menuSceneWorld = new POM.WorldNode({
                 if (bomb.offsetY < bombBottomY) {
                     return true;
                 } else {
-                    menuSceneWorld.removeChild(bomb);
                     recycleBomb(bomb);
                     return false;
                 }
@@ -175,15 +174,13 @@ export const menuScene = COM.create(HE.SceneNode, {
         },
         exit(event) {
 
-            menuSceneWorld.childNodes.forEach(childNode => {
-                menuSceneWorld.removeChild(childNode);
-            });
             menuSceneWorld.deactivate();
 
             bombs.forEach(bomb => {
                 recycleBomb(bomb);
             });
             bombs.length = 0;
+
             if (bombSpawnTimer !== null) {
                 clearTimeout(bombSpawnTimer);
                 bombSpawnTimer = null;
@@ -193,6 +190,7 @@ export const menuScene = COM.create(HE.SceneNode, {
                 particleGroup.animation.finish(event.timeStamp);
             });
             // particleGroups remove themselves when animations finish
+
             if (particleGroupSpawnTimer !== null) {
                 clearTimeout(particleGroupSpawnTimer);
                 particleGroupSpawnTimer = null;

@@ -65,7 +65,6 @@ const handleClick = HUtils.throttle(
                 1,
             );
 
-            mainSceneWorld.removeChild(bomb);
             recycleBomb(bomb);
 
             const particleGroup = createParticleGroup(
@@ -167,9 +166,6 @@ export const mainScene = COM.create(HE.SceneNode, {
 
         exit(event) {
 
-            mainSceneWorld.childNodes.slice().forEach(childNode => {
-                mainSceneWorld.removeChild(childNode);
-            });
             mainSceneWorld.deactivate();
 
             platforms.forEach(platform => {
@@ -180,6 +176,7 @@ export const mainScene = COM.create(HE.SceneNode, {
             bombs.forEach(bomb => {
                 recycleBomb(bomb);
             });
+            bombs.length = 0;
 
             particleGroups.forEach(particleGroup => {
                 particleGroup.animation.finish(event.timeStamp);

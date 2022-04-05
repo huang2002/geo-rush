@@ -12,6 +12,11 @@ const BOMB_IMPACT_COEFFICIENT = 9;
 
 const SCORE_SCALE = 0.05;
 
+const endGame = () => {
+    mainSceneWorld.deactivate();
+    gameOverSection.visible = true;
+};
+
 mainSceneWorld.on('afterUpdate', () => {
 
     setScore(
@@ -24,8 +29,7 @@ mainSceneWorld.on('afterUpdate', () => {
     scoreText.content = `Score: ${currentScore}`;
 
     if (character.bounds.bottom >= engine.height) {
-        mainSceneWorld.deactivate();
-        gameOverSection.visible = true;
+        endGame();
     }
 
 });

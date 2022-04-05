@@ -41,11 +41,9 @@ export const mainSceneWorld = new POM.WorldNode({
     listeners: {
 
         beforeUpdate() {
-            updatePlatforms(mainSceneWorld);
-            updateCamera();
-        },
 
-        afterUpdate() {
+            updatePlatforms(mainSceneWorld);
+
             bombs = bombs.filter(bomb => {
                 if (bomb.bounds.top <= engine.height) {
                     return true;
@@ -54,6 +52,9 @@ export const mainSceneWorld = new POM.WorldNode({
                     return false;
                 }
             });
+
+            updateCamera();
+
         },
 
     },

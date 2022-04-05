@@ -6,6 +6,7 @@ import { platformPool, platforms, PLATFORM_MIN_Y, updatePlatforms } from "./plat
 import { menuScene } from './menuScene.js';
 import { createParticleGroup } from './particles.js';
 import { bonusAnimationPool, bonusAnimations, bonusTextPool, bonusTexts, coinPool, coins } from './coin.js';
+import { updateHightestScore } from './storage.js';
 
 const BOMB_SPAWN_MIN_GAP = 200;
 const BOMB_IMPACT_COEFFICIENT = 9;
@@ -15,6 +16,7 @@ const SCORE_SCALE = 0.05;
 const endGame = () => {
     mainSceneWorld.deactivate();
     gameOverSection.visible = true;
+    updateHightestScore(currentScore);
 };
 
 mainSceneWorld.on('afterUpdate', () => {

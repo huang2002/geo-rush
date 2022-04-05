@@ -2,6 +2,7 @@ import { FRAME_DURATION, SIMPLE_BUTTON_WIDTH, engine, SimpleButton, MAX_FRAME_CO
 import { createBomb, recycleBomb } from './bomb.js';
 import { createParticleGroup } from './particles.js';
 import { mainScene } from './mainScene.js';
+import { highestScore } from './storage.js';
 
 const SPAWN_WAITING_TIME = 500;
 
@@ -160,17 +161,34 @@ const menuSceneWorld = new POM.WorldNode({
     },
 });
 
+const highestScoreText = new COM.TextNode({
+    stretchX: 1,
+    boundsHeight: 50,
+    style: {
+        fillStyle: '#19F',
+        font: 'bold 20px sans-serif',
+        textAlign: 'center',
+        textBaseline: 'middle',
+    },
+});
+
 export const menuScene = COM.create(HE.SceneNode, {
     id: 'menu-scene',
     interactive: true,
     listeners: {
         enter() {
+
             bombSpawnTimer = setTimeout(spawnBomb, BOMB_SPAWN_MIN_GAP);
+
             particleGroupSpawnTimer = setTimeout(
                 spawnParticleGroup,
                 PARTICLE_GROUP_SPAWN_MIN_GAP,
             );
+
             menuSceneWorld.activate();
+
+            highestScoreText.content = `Highest: ${highestScore}`;
+
         },
         exit(event) {
 
@@ -204,7 +222,7 @@ export const menuScene = COM.create(HE.SceneNode, {
 
     COM.create(COM.AlignNode, {
         stretchX: 1,
-        offsetY: 80,
+        offsetY: 150,
         alignX: 'center',
     }, [
         COM.create(COM.FlowNode, {
@@ -215,7 +233,7 @@ export const menuScene = COM.create(HE.SceneNode, {
 
             COM.create(COM.TextNode, {
                 stretchX: 1,
-                boundsHeight: 150,
+                boundsHeight: 50,
                 content: 'Geo Rush',
                 style: {
                     fillStyle: '#0F0',
@@ -224,6 +242,8 @@ export const menuScene = COM.create(HE.SceneNode, {
                     textBaseline: 'middle',
                 },
             }),
+
+            highestScoreText,
 
             SimpleButton('Start', () => {
                 engine.enter(mainScene);

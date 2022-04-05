@@ -124,7 +124,7 @@ export const updatePlatforms = (world) => {
 
         if (lastPlatform && coinSpawnRandomizer.boolean(COIN_SPAWN_RATE)) {
             spawnCoin(
-                nextPlatform.offset.x + nextWidth / 2 - COIN_RADIUS,
+                nextPlatform.offset.x + nextWidth / 2,
                 nextPlatform.offset.y - COIN_RADIUS * 2 - COIN_HEIGHT,
                 world,
             );

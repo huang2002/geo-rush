@@ -105,7 +105,7 @@ export const spawnCoin = (x, y, world) => {
 
     const coin = coinPool.pop();
 
-    coin.offset.set(x, y);
+    coin.offset.set(x - COIN_RADIUS, y);
 
     coin.once('collision', (collisionEvent) => {
 

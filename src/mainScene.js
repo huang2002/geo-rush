@@ -1,6 +1,8 @@
 import { createBomb, recycleBomb } from './bomb.js';
 import { engine, SimpleButton, SIMPLE_BUTTON_WIDTH } from './common.js';
-import { bombs, character, CHARACTER_INIT_X, CHARACTER_SIZE, mainSceneWorld, particleGroups, platformPool, platforms, PLATFORM_MIN_Y, updateCamera, updatePlatforms } from './mainSceneWorld.js';
+import { bombs, mainSceneWorld, particleGroups, updateCamera } from './mainSceneWorld.js';
+import { character, CHARACTER_INIT_X, CHARACTER_SIZE } from "./character.js";
+import { platformPool, platforms, PLATFORM_MIN_Y, updatePlatforms } from "./platform.js";
 import { menuScene } from './menuScene.js';
 import { createParticleGroup } from './particles.js';
 
@@ -156,7 +158,7 @@ export const mainScene = COM.create(HE.SceneNode, {
             mainSceneWorld.appendChild(character);
 
             updateCamera(true);
-            updatePlatforms();
+            updatePlatforms(mainSceneWorld);
 
             gameOverSection.visible = false;
 

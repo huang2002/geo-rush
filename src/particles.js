@@ -65,6 +65,9 @@ const animationPool = new HP.Pool({
             timing: COM.Timing.easeOut,
         })
     ),
+    clear(animation) {
+        animation.listenerMap.clear();
+    },
 });
 
 /**

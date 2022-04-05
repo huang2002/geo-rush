@@ -24,6 +24,7 @@ const bombPool = new HP.Pool({
         })
     ),
     clear(bomb) {
+        bomb.listenerMap.clear();
         if (bomb.parentNode) {
             bomb.parentNode.removeChild(bomb);
         }

@@ -153,7 +153,7 @@ export const mainScene = COM.create(HE.SceneNode, {
     penetrable: false,
     listeners: {
 
-        enter() {
+        enter(event) {
 
             setScore(0);
 
@@ -164,7 +164,7 @@ export const mainScene = COM.create(HE.SceneNode, {
             );
             mainSceneWorld.appendChild(character);
 
-            updateCamera(true);
+            updateCamera(event.timeStamp);
             updatePlatforms(mainSceneWorld);
 
             gameOverSection.visible = false;

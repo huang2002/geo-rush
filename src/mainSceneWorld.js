@@ -4,8 +4,6 @@ import { updateCoins } from './coin.js';
 import { engine, FRAME_DURATION, MAX_FRAME_COUNT } from './common.js';
 import { updatePlatforms } from './platform.js';
 
-const CAMERA_SPEED = 0.5;
-
 /**
  * @type {(import('./bomb').Bomb)[]}
  */
@@ -16,18 +14,24 @@ export let bombs = [];
  */
 export const particleGroups = new Set();
 
-export const updateCamera = (instant = false) => {
-    const targetOffsetX = engine.width / 2 - character.bounds.width / 2
-        - character.offset.x - character.velocity.x;
-    if (instant) {
-        mainSceneWorld.offset.x = targetOffsetX;
-    } else {
-        mainSceneWorld.offset.x = HUtils.interpolate(
-            mainSceneWorld.offset.x,
-            targetOffsetX,
-            CAMERA_SPEED,
-        );
-    }
+/**
+ * @param {number} timeStamp
+ */
+export const updateCamera = (timeStamp) => {
+
+    mainSceneWorld.offset.x =
+        engine.width / 2
+        - character.bounds.width / 2
+        - character.offset.x;
+
+    mainSceneWorld.locate(timeStamp);
+
+    // `WorldNode.noChildUpdate` is `true` by default,
+    // so `childNode.locate`s are invoked manually here.
+    mainSceneWorld.childNodes.forEach(childNode => {
+        childNode.locate(timeStamp);
+    });
+
 };
 
 /**
@@ -55,8 +59,10 @@ export const mainSceneWorld = new POM.WorldNode({
                 }
             });
 
-            updateCamera();
+        },
 
+        afterUpdate(event) {
+            updateCamera(event.timeStamp);
         },
 
     },

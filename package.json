@@ -30,7 +30,7 @@
     "3h-pool": "^0.1.0",
     "3h-random": "^2.0.0",
     "3h-utils": "^0.3.0",
-    "canvasom": "^1.1.1",
+    "canvasom": "^1.2.0",
     "hengine": "^0.42.1",
     "physom": "^0.3.0"
   }

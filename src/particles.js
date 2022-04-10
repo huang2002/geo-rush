@@ -43,11 +43,12 @@ const particlePool = new HP.Pool({
             classNames: ['particle'],
             vertices: PARTICLE_VERTICES,
             airFriction: 0.01,
-            style: {
-                fillStyle: particleColorRandomizer.choice(PARTICLE_COLORS),
-            },
         })
     ),
+    init(particle) {
+        particle.style.fillStyle =
+            particleColorRandomizer.choice(PARTICLE_COLORS);
+    },
     clear(particle) {
         if (particle.parentNode) {
             particle.parentNode.removeChild(particle);
